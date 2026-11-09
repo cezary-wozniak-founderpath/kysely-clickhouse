@@ -2,6 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClickhouseConnection = void 0;
 const client_1 = require("@clickhouse/client");
+// In ClickHouse SQL a backslash starts an escape sequence, so backslashes are escaped along with
+// single quotes. Escaping only the quotes let a value such as `O\'Brien` close the literal early,
+// and the rest of the value was read as SQL.
+function clickhouseStringLiteral(value) {
+    return `'${value.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
+}
 class ClickhouseConnection {
     #client;
     constructor(config) {
@@ -22,9 +28,9 @@ class ClickhouseConnection {
             }
             // should never happen
             if (typeof param !== 'string') {
-                return `'${JSON.stringify(param)}'`;
+                return clickhouseStringLiteral(String(JSON.stringify(param)));
             }
-            return `'${param.replace(/'/gm, `\\'`).replace(/\\"/g, '\\\\"')}'`;
+            return clickhouseStringLiteral(param);
         });
         return compiledSql;
     }

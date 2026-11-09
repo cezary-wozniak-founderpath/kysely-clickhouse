@@ -1,12 +1,12 @@
 {
-  "name": "@founderpath/kysely-clickhouse",
-  "version": "1.6.1",
-  "description": "Clickhouse Dialect for Kysely",
+  "name": "@cezary-wozniak-founderpath/kysely-clickhouse",
+  "version": "1.6.3",
+  "description": "Clickhouse Dialect for Kysely: @founderpath/kysely-clickhouse 1.6.1 with string parameter escaping fixed",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/founderpathcom/kysely-clickhouse"
+    "url": "https://github.com/cezary-wozniak-founderpath/kysely-clickhouse"
   },
   "files": [
     "dist"
@@ -18,12 +18,8 @@
   "author": "Makara Sok",
   "license": "MIT",
   "devDependencies": {
-    "@biomejs/biome": "^1.5.2",
     "@clickhouse/client": "^1.4.1",
-    "@types/bluebird": "^3.5.42",
-    "kysely": "^0.27.2",
-    "typescript": "^5.3.3",
-    "vitest": "^1.2.1"
+    "kysely": "^0.27.2"
   },
   "peerDependencies": {
     "@clickhouse/client": "*",
@@ -33,7 +29,6 @@
     "bluebird": "^3.7.2"
   },
   "scripts": {
-    "test": "vitest",
-    "build": "tsc"
+    "test": "node --test tests/*.test.mjs"
   }
 }
